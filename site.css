@@ -1,0 +1,22 @@
+.message{
+  padding: 1em;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+.success{
+  border: 2px solid green;
+}
+
+.fail{
+  border: 2px solid red;
+}
+
+.notice{
+  border: 2px solid #000000;
+}
+
+.submit_button{
+  text-align: right;
+}
+

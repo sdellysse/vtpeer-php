@@ -1,0 +1,46 @@
+<form>
+  <fieldset>
+    <legend>Current Phase</legend>
+    <p class="instructions">
+      <var current_phase>
+    </p>
+  </fieldset>
+  <fieldset>
+    <legend>Current Registration Status</legend>
+    <p class="instructions">
+      Registration is currently:
+        <if registration_enabled>
+          <span style="color: green;">Enabled</span>
+        <else>
+          <span style="color: red;">Disabled</span>
+        </if>
+    </p>
+    <if registration_enabled>
+      <p class="instructions">
+        The current code needed to register is <em><var registration_code></em>.
+      </p>
+    </if>
+  </fieldset>
+  <fieldset>
+    <legend>Groups Status</legend>
+    <table style="margin-left:auto; margin-right:auto;">
+      <tr>
+        <th>Group Number</th>
+        <th>Status</th>
+      <tr>
+      <loop groups>
+        <tr>
+          <td><var number></td>
+          <td>
+            <if group_is_active>
+              Active
+            <else>
+              Inactive
+            </if>
+          </td>
+        </tr>
+      </loop>
+    </table>
+  </table>
+</form>
+

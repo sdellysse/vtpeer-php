@@ -1,0 +1,44 @@
+<if registration_updated>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          Registration information successfully updated.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<form action="registration_management_execution.php" action="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset style="padding-top: 1em;">
+    <p class="instructions">
+      Registration is currently:
+      <if registration_enabled>
+        <span style="color: green;">Enabled</span>
+      <else>
+        <span style="color: red;">Disabled</span>
+      </if>
+    </p>
+    <if registration_enabled>
+      <p class="instructions">
+        The current code needed to register is <em><var registration_code></em>.
+      </p>
+    </if>
+    <hr/>
+    <p class="text">
+      <label for="code">New registration code:</label>
+      <br/>
+      <input type='text' name="code" id='code'
+        <if registration_code>
+          value="<var registration_code>"
+        </if>
+      />
+    </p>
+
+    <p class="submit_button">
+      <input type="submit" name="action" value="Enable Registration"/>
+      <input type="submit" name="action" value="Disable Registration"/>
+    </p>
+  </fieldset>
+</form>

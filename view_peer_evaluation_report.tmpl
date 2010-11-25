@@ -1,0 +1,174 @@
+<form action="download_peer_evaluation_report.php?group_id=<var group_id>" method="post">
+  <fieldset>
+    <legend>Group <var group_id></legend>
+    <table style="margin-left: auto; margin-right: auto;">
+      <tr>
+        <th style="border-left: 2px solid black; color: black;">Reviewers</th>
+        <loop group_members>
+          <th rowspan="2" style="text-align: center; vertical-align: middle;"><var first_name> <var last_name></th>
+        </loop>
+        <th rowspan="2" style="text-align: center; vertical-align: middle; color: #000000; border-left: 4px solid black;">Average Grade Received</th>
+      </tr>
+      <tr>
+        <th style="border-top: 2px solid black; border-right: 2px solid black; color: black;">Reviewees</th>
+      </tr>
+      <loop rows>
+        <tr>
+          <th style="text-align: center; vertical-align: middle;"><var first_name> <var last_name></th>
+          <loop grades>
+            <unless self_square>
+              <td style="border: 2px solid black; text-align: center; vertical-align: middle;">
+                <unless grade>
+                  &nbsp;
+                <else>
+                  <span style="font-face: fixed;"><var grade>%</span>
+                </unless>
+              </td>
+            <else>
+              <td style="border: 2px solid black; text-align: center; vertical-align: middle; background-color: gray;">
+                &nbsp;
+              </td>
+            </unless>
+          </loop>
+          <td style="border: 2px solid black; text-align: center; vertical-align: middle; border-left: 4px solid black;">
+            <strong>
+              <if average_grade_received>
+                <var average_grade_received>%
+              </if>
+            </strong>
+          </td>
+        </tr>
+      </loop>
+      <tr>
+        <th style="text-align: center; vertical-align: middle; color: #000000; border-top: 4px solid black;">Average Grade Given</th>
+        <loop average_grade_given>
+          <td style="border: 2px solid black; text-align: center; vertical-align: middle; border-top: 4px solid black;">
+            <if grade>
+              <strong><var grade>%</strong>
+            </if>
+          </td>
+        </loop>
+      </tr>
+    </table>
+  </fieldset>
+</form>
+<if each_member>
+  <loop each_member>
+    <form>
+      <fieldset>
+        <legend>Evaluations performed by <var first_name> <var last_name></legend>
+        <p>
+          <h2>
+            Grades given by <var first_name> <var last_name>:
+          </h2>
+        </p>
+        <table style="margin-left: auto; margin-right: auto;">
+          <tr>
+            <th style="border-left: 2px solid black; color: black;">Phases</th>
+            <loop phases>
+              <th rowspan="2" style="text-align: center; vertical-align: middle;">Phase #<var id></th>
+            </loop>
+            <th rowspan="2" style="text-align: center; vertical-align: middle; color: #000000; border-left: 4px solid black;">Average Grade Given (by Reviewee)</th>
+          </tr>
+          <tr>
+            <th style="border-top: 2px solid black; border-right: 2px solid black; color: black;">Reviewees</th>
+          </tr>
+          <loop rows_given>
+            <tr>
+              <th><var first_name> <var last_name></th>
+              <loop grades_given_by_phase>
+                <td style="border: 2px solid black; text-align: center; vertical-align: middle;">
+                  <unless grade>
+                    &nbsp;
+                  <else>
+                    <span style="font-face: fixed;"><var grade>%</span>
+                  </unless>
+                </td>
+              </loop>
+              <td style="border: 2px solid black; text-align: center; vertical-align: middle; border-left: 4px solid black;">
+                <strong>
+                  <if average_grade_given>
+                    <var average_grade_given>%
+                  </if>
+                </strong>
+              </td>
+            </tr>
+          </loop>
+          <th style="text-align: center; vertical-align: middle; color: #000000; border-top: 4px solid black;">Average Grade Given (by Phase)</th>
+          <loop average_grade_given>
+            <td style="border: 2px solid black; text-align: center; vertical-align: middle; border-top: 4px solid black;">
+              <if grade>
+                <strong><var grade>%</strong>
+              </if>
+            </td>
+          </loop>
+        </table>
+        <p><h2>Grades received by <var first_name> <var last_name>:</h2></p>
+        <table style="margin-left: auto; margin-right: auto;">
+          <tr>
+            <th style="border-left: 2px solid black; color: black;">Phases</th>
+            <loop phases>
+              <th rowspan="2" style="text-align: center; vertical-align: middle;">Phase #<var id></th>
+            </loop>
+            <th rowspan="2" style="text-align: center; vertical-align: middle; color: #000000; border-left: 4px solid black;">Average Grade Received (by Reviewer)</th>
+          </tr>
+          <tr>
+            <th style="border-top: 2px solid black; border-right: 2px solid black; color: black;">Reviewers</th>
+          </tr>
+          <loop rows_received>
+            <tr>
+              <th><var first_name> <var last_name></th>
+              <loop grades_received_by_phase>
+                <td style="border: 2px solid black; text-align: center; vertical-align: middle;">
+                  <unless grade>
+                    &nbsp;
+                  <else>
+                    <span style="font-face: fixed;"><var grade>%</span>
+                  </unless>
+                </td>
+              </loop>
+              <td style="border: 2px solid black; text-align: center; vertical-align: middle; border-left: 4px solid black;">
+                <strong>
+                  <if average_grade_received>
+                    <var average_grade_received>%
+                  </if>
+                </strong>
+              </td>
+            </tr>
+          </loop>
+          <th style="text-align: center; vertical-align: middle; color: #000000; border-top: 4px solid black;">Average Grade Received (by Phase)</th>
+          <loop average_grade_received>
+            <td style="border: 2px solid black; text-align: center; vertical-align: middle; border-top: 4px solid black;">
+              <if grade>
+                <strong><var grade>%</strong>
+              </if>
+            </td>
+          </loop>
+        </table>
+        <p><h2>Comments given by <var first_name> <var last_name>:</h2></p>
+        <loop each_comment_given>
+          <p class="textarea">
+            <label>
+              <strong>Reviewee:</strong> <var first_name> <var last_name> (<strong>Phase</strong> <var phase>)
+            </label>
+            <br/>
+            <textarea><var comment></textarea>
+          </p>
+        </loop>
+        <p>
+        <p><h2>Comments received by <var first_name> <var last_name>:</h2></p>
+        </p>
+        <loop each_comment_received>
+          <p class="textarea">
+            <label>
+              <strong>Reviewer:</strong> <var first_name> <var last_name> (<strong>Phase</strong> <var phase>)
+            </label>
+            <br/>
+            <textarea><var comment></textarea>
+          </p>
+        </loop>
+      </fieldset>
+    </form>
+  </loop>
+</if>
+

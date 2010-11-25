@@ -1,0 +1,68 @@
+<if role_too_crowded>
+  <form>
+    <div class='message fail'>
+      <strong>WARNING:</strong>
+      <blockquote>
+        <p class="instructions">
+          There are currently multiple people assigned to the your role (<strong><var your_role></strong>).
+          Make sure to coordinate with your group members to rectify this as soon as possible.
+          While this warning is in place, do not complete any evaluations as they may not be counted.
+        </p>
+        <p class="instructions">
+          Please use the "Change Group Role" link to the left in order to change your current role.
+          If you and a team member are currently in the process of switching roles, disregard this
+          message; it will disapper as soon as he/she changes his/her role also.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<form>
+<fieldset>
+<legend>Current Phase</legend>
+  <p class="instructions">
+    <var current_phase>
+  </p>
+</fieldset>
+<fieldset>
+  <legend>Your Role</legend>
+  <p class="instructions">
+    <var your_role>
+  </p>
+</fieldset>
+<fieldset>
+  <legend>Necessary Reviews</legend>
+  <p class="instructions">
+    By the end of this phase, you need to review each of the following group members:
+    <table style="margin-left: auto; margin-right: auto;">
+      <tr>
+        <th>Role</th>
+        <th>Name</th>
+        <th>Completion Status</th>
+      </tr>
+      <if reviewees>
+        <loop reviewees>
+          <tr>
+            <td><var role_name></td>
+            <td><var first_name> <var last_name></td>
+            <td>
+              <if is_eval_finished>
+                <span style="color: green;">Completed</span>
+              <else>
+                <span style="color: red;">Not Completed</span>
+              </if>
+            </td>
+          </tr>
+        </loop>
+      <else>
+        <tr>
+          <td colspan="3" style="text-align: center;">
+            You are currently the only member of your group.
+          </td>
+        </tr>
+      </if>
+    </table>
+  </p>
+</fieldset>
+</form>
+

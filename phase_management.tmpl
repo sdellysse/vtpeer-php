@@ -1,0 +1,32 @@
+<if phase_changed>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          Phase successfully changed.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<form action="phase_management_execution.php" action="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset style="padding-top: 1em;">
+    <p class="instructions">
+      The current phase is <var phase>.
+    </p>
+    <hr/>
+    <p class="select">
+      <label for="new_phase">Please select a phase to change to:</label>
+      <br/>
+      <select id="new_phase" name="phase_box" />
+        <loop phases>
+          <option value="<var id>"><var id></option>
+        </loop>
+      </select>
+    </p>
+    <p class="submit_button">
+        <input type="submit" value="Change Phase"/>
+    </p>
+  </fieldset>
+</form>

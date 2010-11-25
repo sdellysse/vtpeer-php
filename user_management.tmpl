@@ -1,0 +1,60 @@
+<if passwords_reset>
+  <form>
+    <div class='message success'>
+      <blockquote>
+        <p class="instructions">
+          Passwords have been reset and emailed to users.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if no_user_selected>
+  <form>
+    <div class='message fail'>
+      <blockquote>
+        <p class="instructions">
+          Select at least one user before continuing.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<form action="user_management_execution.php" method="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset>
+    <legend>Current Users</legend>
+    <table style="margin-left: auto; margin-right: auto;">
+      <tr>
+        <th width="3em">&nbsp;</th>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Group</th>
+      </tr>
+      <loop users>
+        <tr>
+          <td>
+            <input type="checkbox" name="selection_<var username>" value="<var username>" id="checkbox_<var username>" />
+          </td>
+          <td>
+            <label for="checkbox_<var username>"><var username></label>
+          </td>
+          <td>
+            <label for="checkbox_<var username>"><var first_name></label>
+          </td>
+          <td>
+            <label for="checkbox_<var username>"><var last_name></label>
+          </td>
+          <td>
+            <label for="checkbox_<var username>"><var group_id></label>
+          </td>
+        </tr>
+      </loop>
+    </table>
+    <p class="submit_button">
+      <input type="submit" name="action" value="Reset Password" />
+    </p>
+  </fieldset>
+</form>
+

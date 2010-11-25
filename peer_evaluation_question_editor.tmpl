@@ -1,0 +1,15 @@
+<form action="peer_evaluation_question_editor_execution.php" method="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset style="padding-top: 1em;">
+    <loop questions>
+      <p class="text">
+        <label for="question_<var id>"><var role> Question (ID of <var id>):</label>
+        <br/>
+        <input type="text" name="question_<var id>" id="question_<var id>" value="<var question_text>" />
+      </p>
+    </loop>
+    <p class="submit_button">
+      <input type="submit" value="Make Changes"/>
+    </p>
+  </fieldset>
+</form>

@@ -1,0 +1,104 @@
+<if registration_code_invalid>
+  <form>
+    <div class="message fail">
+      <blockquote>
+        <p class="instructions">
+          Registration code is invalid.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if username_taken>
+  <form>
+    <div class="message fail">
+      <blockquote>
+        <p class="instructions">
+          Username taken.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if password_mismatch>
+  <form>
+    <div class="message fail">
+      <blockquote>
+        <p class="instructions">
+          Passwords empty or do not match.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if registration_enabled>
+  <form method="post" action="register.php">
+    <input type="hidden" name="process" value="1"/>
+    <fieldset style="padding-top: 1em;">
+      <p class="text">
+        <label for="registration_code">Registration code (given by instructor):</label>
+        <br/>
+        <input type="text" name="registration_code" id="registration_code"/>
+      </p>
+      <p class="text">
+        <label for="username">Username:</label>
+        <br/>
+        <input type="text" name="username" id="username" />
+      </p>
+      <p class="text">
+        <label for="password">Password:</label>
+        <br/>
+        <input type="password" name="password" id="password" />
+      </p>
+      <p class="text">
+        <label for="password_repeat">Password (again):</label>
+        <br/>
+        <input type="password" name="password_repeat" id="password_repeat"/>
+      </p>
+      <p class="text">
+        <label for="email_address">Email Address:</label>
+        <br/>
+        <input type="text" name="email_address" id="email_address"/>
+      </p>
+      <p class="text">
+        <label for="first_name">First Name:</label>
+        <br/>
+        <input type="text" name="first_name" id="first_name"/>
+      </p>
+      <p class="text">
+        <label for="last_name">Last Name:</label>
+        <br/>
+        <input type="text" name="last_name" id="last_name" />
+      </p>
+      <p class="select">
+        <label for="group">Group:</label>
+        <br/>
+        <select name="group" id="group">
+          <loop group>
+            <option value="<var id>"><var id></option>
+          </loop>
+        </select>
+      </p>
+      <p class="select">
+        <label for="role">Initial role:</label>
+        <br/>
+        <select name="role" id="role">
+          <loop role>
+            <option value="<var id>"><var text></option>
+          </loop>
+        </select>
+      </p>
+      <p class="submit_button">
+        <input type="submit" value="Register"/>
+      </p>
+    </fieldset>
+  </form>
+<else>
+  <form>
+    <fieldset>
+      <p class="instructions">
+        Registration has been disabled.
+      </p>
+    </fieldset>
+  </form>
+</if>

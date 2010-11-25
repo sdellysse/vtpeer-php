@@ -1,0 +1,40 @@
+<if evaluation_completed>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          Evaluation of <var first_name> <var last_name> is now complete.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<form action="perform_end_of_term_evaluation.php" method="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset>
+    <legend>Select Evaluation</legend>
+    <table style="margin-left: auto; margin-right: auto;">
+      <tr>
+        <th style="width: 3em;">&nbsp;</th>
+        <th>Group Member Name</th>
+      </tr>
+      <loop members>
+        <tr>
+          <td>
+            <unless completed>
+              <input type="radio" name="member" value="<var username>" id="radio_<var username>"/>
+            <else>
+              <span style="color: green;">Completed</span>
+            </unless>
+          </td>
+          <td>
+            <label for="radio_<var username>"><var first_name> <var last_name></label>
+          </td>
+        </tr>
+      </loop>
+    </table>
+    <p class="submit_button">
+      <input type="submit" value="Perform Evaluation"/>
+    </p>
+  </fieldset>
+</form>

@@ -1,0 +1,40 @@
+<if login_failed>
+  <form>
+    <div class="message fail">
+      <blockquote>
+        <p class="instructions">
+          Login failed: Invalid username or password.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if new_user>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          New user <em><var new_user></em> was created. Please login below.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<form method="post" action="login.php">
+  <input type="hidden" name="process" value="1"/>
+  <fieldset style="padding-top: 1em;">
+    <p class="text">
+      <label for="username">Username:</label>
+      <br/>
+      <input type="text" name="username" id="username" />
+    </p>
+    <p class="text">
+      <label for="password">Password:</label>
+      <br/>
+      <input type="password" name="password" id="password"/>
+    </p>
+    <p class="submit_button">
+      <input type="submit" value="Login"/>
+    </p>
+  </fieldset>
+</form>

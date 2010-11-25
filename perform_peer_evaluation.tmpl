@@ -1,0 +1,45 @@
+<form action="peer_evaluation_execution.php" method="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <input type="hidden" name="reviewee" value="<var reviewee>"/>
+  <fieldset style="padding-top: 1em;">
+    <p class="instructions">
+      <!--instructions here.-->
+    </p>
+    <loop questions>
+      <p class="radio">
+        <var __ROWNUM__>) <var text>
+      </p>
+      <ul class="radio">
+        <li>
+          <input type="radio" name="question_<var id>" value="1" id="question_<var id>_1"/>
+          <label for="question_<var id>_1"> 1 </label>
+        </li>
+        <li>
+          <input type="radio" name="question_<var id>" value="2" id="question_<var id>_2"/>
+          <label for="question_<var id>_2"> 2 </label>
+        </li>
+        <li>
+          <input type="radio" name="question_<var id>" value="3" id="question_<var id>_3"/>
+          <label for="question_<var id>_3"> 3 </label>
+        </li>
+        <li>
+          <input type="radio" name="question_<var id>" value="4" id="question_<var id>_4"/>
+          <label for="question_<var id>_4"> 4 </label>
+        </li>
+        <li>
+          <input type="radio" name="question_<var id>" value="5" id="question_<var id>_5"/>
+          <label for="question_<var id>_5"> 5 </label>
+        </li>
+      </ul>
+      <hr/>
+    </loop>
+    <p class="textarea">
+      <label for="comment">Comments:</label>
+      <br/>
+      <textarea id="comment" name="comment"></textarea>
+    </p>
+    <p class="submit_button">
+      <input type="submit" value="Submit"/>
+    </p>
+  </fieldset>
+</form>

@@ -1,0 +1,66 @@
+<if username_taken>
+  <form>
+    <div class="message fail">
+      <blockquote>
+        <p class="instructions">
+          Username taken.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if password_mismatch>
+  <form>
+    <div class="message fail">
+      <blockquote>
+        <p class="instructions">
+          Passwords empty or do not match.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if admin_created>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          An admistrative account for <var first_name> <var last_name> has been created.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<form method="post" action="create_admin_execution.php">
+  <input type="hidden" name="previous_page" value="<var previous_page>" />
+  <fieldset style="padding-top: 1em;">
+    <p class="text">
+      <label for="username">Username:</label>
+      <br/>
+      <input type="text" name="username" id="username" />
+    </p>
+    <p class="text">
+      <label for="password">Password:</label>
+      <br/>
+      <input type="password" name="password" id="password" />
+    </p>
+    <p class="text">
+      <label for="password_repeat">Password (again):</label>
+      <br/>
+      <input type="password" name="password_repeat" id="password_repeat"/>
+    </p>
+    <p class="text">
+      <label for="first_name">First Name:</label>
+      <br/>
+      <input type="text" name="first_name" id="first_name"/>
+    </p>
+    <p class="text">
+      <label for="last_name">Last Name:</label>
+      <br/>
+      <input type="text" name="last_name" id="last_name" />
+    </p>
+    <p class="submit_button">
+      <input type="submit" value="Create Administrator Account"/>
+    </p>
+  </fieldset>
+</form>

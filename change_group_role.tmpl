@@ -1,0 +1,32 @@
+<if success>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          Role change successful.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<form action="change_group_role_execution.php" action="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset style="padding-top: 1em;">
+    <p class="instructions">
+      Your current role is <var role>.
+    </p>
+    <hr/>
+    <p class="select">
+      <label for="new_group_role">Please select a role to change to:</label>
+      <br/>
+      <select name="new_group_role" id="new_group_role">
+        <loop roles>
+          <option value="<var id>"><var text></option>
+        </loop>
+      </select>
+    </p>
+    <p class="submit_button">
+      <input type="submit" value="Change Role"/>
+    </p>
+  </fieldset>
+</form>

@@ -1,0 +1,45 @@
+<if evaluations_enabled>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          End of Term Evaluations have been <span style="color: green;">Enabled</span>.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if evaluations_disabled>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          End of Term Evaluations have been <span style="color: red;">Disabled</span>.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<form action="end_of_term_management_execution.php" method="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset>
+    <legend>Enable/Disable End of Term Evaluations</legend>
+    <p class="instructions">
+      End of Term Evaluations are currently
+      <if evaluations_enabled>
+        <span style="color: green;">Enabled</span>.
+      <else>
+        <span style="color: red;">Disabled</span>.
+      </if>
+    </p>
+    <p class="submit_button">
+      <input type="submit" name="action"
+        <if evaluations_enabled>
+          value="Disable Evaluations"
+        <else>
+          value="Enable Evaluations"
+        </if>
+      />
+    </p>
+  </fieldset>
+</form>

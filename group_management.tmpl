@@ -1,0 +1,116 @@
+<if num_groups_added>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          <var num_groups_added> groups have been added to the system, with each
+          of them marked as
+          <if groups_added_active>
+            <span style="color: green;">Active</span>
+          <else>
+            <span style="color: red;">Inactive</span>
+          </if>
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if groups_activeness_change>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          The selected groups were made
+          <if groups_made_active>
+            <span style="color: green;">Active</span>
+          <else>
+            <span style="color: red;">Inactive</span>
+          </if>
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if no_group_selected>
+  <form>
+    <div class="message fail">
+      <blockquote>
+        <p class ="instructions">
+        Please select at least one group to change
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<form action="group_management_execution.php" method="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset>
+    <legend>Add New Groups</legend>
+    <p class="select">
+      <label for="group_count">How many new groups?</label>
+      <select name="group_count" id="group_count">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+    </p>
+    <p class="submit_button">
+      <input type="submit" name="action" value="Add Active Groups"/>
+      <input type="submit" name="action" value="Add Inactive Groups" />
+    </p>
+  </fieldset>
+</form>
+
+
+<form action="group_management_execution.php" method="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset>
+    <legend>Edit Existing Groups</legend>
+    <if groups>
+      <table style="margin-left: auto; margin-right: auto;">
+        <tr>
+          <th style="width: 3em;">&nbsp;</th>
+          <th>ID</th>
+          <th>Active?</th>
+        </tr>
+          <loop groups>
+            <tr>
+              <td>
+                <input type="checkbox" name="selection_<var id>" value="<var id>" id="checkbox_<var id>" onclick='function(){checkbox_clicked("<var id>")}' />
+              </td>
+              <td><label for="checkbox_<var id>"><var id></label</td>
+              <td>
+                <label for="checkbox_<var id>">
+                  <if active>
+                    <span style="color: green;">Active</span>
+                  <else>
+                    <span style="color: red;">Inactive</span>
+                  </if>
+                </label>
+              </td>
+            </tr>
+          </loop>
+      </table>
+      <p class="submit_button">
+        <input type="submit" name="action" value="Make Active" />
+        <input type="submit" name="action" value="Make Inactive" />
+      </p>
+    <else>
+      <div class="message fail">
+        <blockquote>
+          <p class="instructions">
+            No groups to display.
+          </p>
+        </blockquote>
+      </div>
+    </if>
+  </fieldset>
+</form>
+

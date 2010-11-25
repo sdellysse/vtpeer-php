@@ -1,0 +1,990 @@
+-- phpMyAdmin SQL Dump
+-- version 3.2.3
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jul 21, 2010 at 03:11 PM
+-- Server version: 5.1.30
+-- PHP Version: 5.2.8
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Database: `softeng17`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `access_roles`
+--
+
+CREATE TABLE IF NOT EXISTS `access_roles` (
+  `id` int(2) unsigned NOT NULL AUTO_INCREMENT,
+  `text` varchar(12) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `access_roles`
+--
+
+INSERT INTO `access_roles` (`id`, `text`) VALUES
+(1, 'user'),
+(2, 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `active_groups`
+--
+CREATE TABLE IF NOT EXISTS `active_groups` (
+`id` int(2) unsigned
+);
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `eot_answers`
+--
+
+CREATE TABLE IF NOT EXISTS `eot_answers` (
+  `id` int(2) unsigned NOT NULL AUTO_INCREMENT,
+  `point_value` int(2) unsigned NOT NULL,
+  `title` varchar(32) NOT NULL,
+  `explanation` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `eot_answers`
+--
+
+INSERT INTO `eot_answers` (`id`, `point_value`, `title`, `explanation`) VALUES
+(1, 5, 'Full participant', 'This individual was a true team player, committed to the totality of the project and who made significant content and process contributions.  Although the bulk of their contribution may have been in one content area, they were clearly committed to making the whole project a success.'),
+(2, 4, 'Strong selective participation', 'This individual made a significant contribution to the project, but within a clearly defined scope; they limited their participation to a particular content or process role-and showed initiative in that area-but did not view the overall project as their responsibility.\r\n'),
+(3, 3, 'Selective participation', 'This individual made a contribution to the project, but their contribution was rather narrow; their work was of good quality, but of minimum quantity.'),
+(4, 2, 'Weak participation', 'This individual attended project meetings but made little substantive contribution to the content or the process of the project; this individual showed little initiative and contributed only what was specifically requested.\r\n'),
+(5, 1, 'Virtually absent', 'This individual frequently missed project meetings, often came unprepared, or contributed substandard work that required correction by fellow team members; they exhibited very little effort and made minimal contribution to the project.'),
+(6, 0, 'Totally absent', 'This individual was totally absent from this project, and the end product in no way reflects a contribution on his or her part.\r\n');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `eot_evaluation`
+--
+
+CREATE TABLE IF NOT EXISTS `eot_evaluation` (
+  `reviewer` varchar(32) NOT NULL COMMENT 'FK: users(username)',
+  `reviewee` varchar(32) NOT NULL COMMENT 'FK: users(username)',
+  PRIMARY KEY (`reviewer`,`reviewee`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `eot_evaluation`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `eot_responses`
+--
+
+CREATE TABLE IF NOT EXISTS `eot_responses` (
+  `reviewer` varchar(32) NOT NULL COMMENT 'FK: eot_evaluation(reviewer)',
+  `reviewee` varchar(32) NOT NULL COMMENT 'FK: eot_evaluation(reviewee)',
+  `answer` int(2) unsigned NOT NULL COMMENT 'FK: eot_answers(id)',
+  `response` int(2) unsigned NOT NULL,
+  PRIMARY KEY (`reviewer`,`reviewee`,`answer`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `eot_responses`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `evaluation_role_matrix`
+--
+
+CREATE TABLE IF NOT EXISTS `evaluation_role_matrix` (
+  `reviewer_role` int(2) NOT NULL COMMENT 'FK: group_roles(id)',
+  `reviewee_role` int(2) NOT NULL COMMENT 'FK: group_roles(id)',
+  PRIMARY KEY (`reviewer_role`,`reviewee_role`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `evaluation_role_matrix`
+--
+
+INSERT INTO `evaluation_role_matrix` (`reviewer_role`, `reviewee_role`) VALUES
+(1, 2),
+(1, 3),
+(2, 1),
+(2, 3),
+(3, 1),
+(3, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `groups`
+--
+
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int(2) unsigned NOT NULL AUTO_INCREMENT,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`id`, `active`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `group_roles`
+--
+
+CREATE TABLE IF NOT EXISTS `group_roles` (
+  `id` int(2) unsigned NOT NULL AUTO_INCREMENT,
+  `text` varchar(12) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `group_roles`
+--
+
+INSERT INTO `group_roles` (`id`, `text`) VALUES
+(1, 'Junior'),
+(2, 'Senior'),
+(3, 'Staff');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `peer_evaluation`
+--
+
+CREATE TABLE IF NOT EXISTS `peer_evaluation` (
+  `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `reviewer` varchar(32) NOT NULL COMMENT 'FK: users(username)',
+  `reviewee` varchar(32) NOT NULL COMMENT 'FK: users(username)',
+  `reviewer_role` varchar(16) NOT NULL COMMENT 'FK: group_roles(role)',
+  `reviewee_role` varchar(16) NOT NULL COMMENT 'FK: group_roles(role)',
+  `phase` smallint(2) NOT NULL COMMENT 'FK: phases(id)',
+  `comment` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
+
+--
+-- Dumping data for table `peer_evaluation`
+--
+
+INSERT INTO `peer_evaluation` (`id`, `reviewer`, `reviewee`, `reviewer_role`, `reviewee_role`, `phase`, `comment`) VALUES
+(38, 'dmann', 'cjstowers', '1', '3', 1, '22222222222222222222222222'),
+(39, 'sdellysse', 'rkeen', '2', '3', 1, 'Comment test'),
+(37, 'sdellysse', 'rjenkins18', '2', '3', 1, 'asdafadfdsfsdf'),
+(36, 'sdellysse', 'cjstowers', '2', '3', 2, 'sadcasd'),
+(34, 'rjenkins18', 'dmann', '3', '1', 2, ''),
+(35, 'sdellysse', 'dmann', '2', '1', 2, 'jndsjkds'),
+(33, 'dmann', 'rjenkins18', '1', '3', 2, 'david reviewing ryan'),
+(32, 'rjenkins18', 'sdellysse', '3', '2', 2, ''),
+(31, 'sdellysse', 'rjenkins18', '2', '3', 2, 'comment3333'),
+(40, 'rkeen', 'sdellysse', '3', '2', 1, 'EEHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!'),
+(41, 'dmann', 'rkeen', '1', '3', 1, '333333333333333'),
+(42, 'rkeen', 'dmann', '3', '1', 1, 'oooooooooooooOOOOOOOOOOOOOOOOoooooooooooooooooOOOOOOOOOO '),
+(43, 'dmann', 'sdellysse', '1', '2', 1, 'pop bottles!'),
+(44, 'cjstowers', 'dmann', '3', '1', 1, '&&'),
+(45, 'cjstowers', 'sdellysse', '3', '2', 1, '!!!!!!'),
+(46, 'rkeen', 'sdellysse', '3', '2', 4, 'Shawn is aWeSoMe.'),
+(47, 'rkeen', 'dmann', '3', '1', 4, '333333333333333333'),
+(48, 'rkeen', 'dmann', '3', '1', 3, 'PARTY ON MONDAY!!!!'),
+(49, 'rkeen', 'sdellysse', '3', '2', 3, 'babbabooy'),
+(50, 'sdellysse', 'rjenkins18', '2', '3', 3, 'gjkhjk'),
+(51, 'sdellysse', 'dmann', '2', '1', 3, 'gnhgfjfgj'),
+(52, 'dmann', 'sdellysse', '1', '2', 3, '33333333333333333333333'),
+(53, 'cjstowers', 'dmann', '3', '1', 3, ''),
+(54, 'cjstowers', 'sdellysse', '3', '2', 3, 'I think this is a great system!'),
+(55, 'keith', 'steve', '3', '1', 3, 'jfgoidsajoij sdjisods'),
+(56, 'keith', 'bubba', '3', '2', 3, 'ppsodiojdjiosddfoijjsdaf'),
+(57, 'jake', 'steve', '3', '1', 3, 'testtesttest\r\n'),
+(58, 'jake', 'bubba', '3', '2', 3, 'tsettset'),
+(59, 'bubba', 'steve', '2', '1', 3, '333333333333333333333333333'),
+(60, 'bubba', 'jake', '2', '3', 3, 'face'),
+(61, 'bubba', 'keith', '2', '3', 3, 'mcgee'),
+(62, 'bill', 'abe', '1', '3', 1, 'Comment here'),
+(63, 'abe', 'bill', '3', '1', 1, 'Comment here.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `peer_evaluation_questions`
+--
+
+CREATE TABLE IF NOT EXISTS `peer_evaluation_questions` (
+  `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `reviewee_role` int(2) unsigned NOT NULL COMMENT 'FK: group_roles(id)',
+  `text` text NOT NULL,
+  PRIMARY KEY (`id`,`reviewee_role`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+
+--
+-- Dumping data for table `peer_evaluation_questions`
+--
+
+INSERT INTO `peer_evaluation_questions` (`id`, `reviewee_role`, `text`) VALUES
+(2, 2, 'Exercised leadership in keeping the team moving forward toward project plan completion.'),
+(3, 2, 'Communicates optimism and hope when the team is struggling.'),
+(4, 2, 'Holds team members accountable for following the team contract and performance standards.'),
+(5, 2, 'Completed his or her fair share of the team workload and submitted it on time.'),
+(6, 2, 'Was firm, fair, and direct when dealing with conflicts and team problems. '),
+(7, 2, 'Did not digress, ramble, or visit social networking sites during team meetings.'),
+(8, 2, 'Attended team meetings prepared to lead the meeting (e.g., agenda, information from the client, etc).'),
+(9, 2, 'Showed up on time for team meetings (or provided advance notification of delays or absences).'),
+(10, 2, 'Stayed calm and composed in pressure situations (frustrations under control).'),
+(11, 2, 'Took this project seriously (no procrastination).'),
+(12, 1, 'Exercised leadership in keeping the staff(you) moving forward toward project completion (for his/her part of the project).'),
+(13, 1, 'Communicates optimism and hope when the team is struggling.'),
+(14, 1, 'Holds staff members accountable for following team contract and performance standards.'),
+(15, 1, 'Completed his or her fair share of the team workload and submitted it on time.'),
+(16, 1, 'Was firm, fair, and direct when dealing with conflicts and stuff problems.'),
+(17, 1, 'Did not digress, ramble, or visit social networking sites during team meetings.'),
+(18, 1, 'Attended stuff meetings prepared to lead the meeting (e.g., agenda, information from the client, etc).'),
+(19, 1, 'Showed up on time for team meetings (or provided advance notification of delays or absences).'),
+(20, 1, 'Stayed calm and composed in pressure situations (frustrations under control).'),
+(21, 1, 'Took this project seriously (no procrastination).'),
+(22, 3, 'Showed up on time for team meetings (or provided advance notification of delays or absences).'),
+(23, 3, 'Attended team meetings prepared to discuss assigned/agreed upon topics.'),
+(24, 3, 'Did not digress, ramble, or visit social networking sites during team meetings.'),
+(25, 3, 'Completed his or her fair share of the team workload and submitted it on time.'),
+(26, 3, 'Created drafts that made a significant contribution to the final or intermediate deliverable.'),
+(27, 3, 'Provided assistance to other members when needed.'),
+(28, 3, 'Took this project seriously (no procrastination).');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `peer_evaluation_responses`
+--
+
+CREATE TABLE IF NOT EXISTS `peer_evaluation_responses` (
+  `question_id` int(5) unsigned NOT NULL COMMENT 'FK: peer_evaluation_questions(id)',
+  `evaluation_id` int(5) unsigned NOT NULL COMMENT 'FK: peer_evaluation(id)',
+  `response` int(2) unsigned NOT NULL,
+  PRIMARY KEY (`question_id`,`evaluation_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `peer_evaluation_responses`
+--
+
+INSERT INTO `peer_evaluation_responses` (`question_id`, `evaluation_id`, `response`) VALUES
+(13, 28, 1),
+(12, 28, 1),
+(28, 27, 3),
+(27, 27, 4),
+(26, 27, 2),
+(25, 27, 5),
+(24, 27, 4),
+(23, 27, 1),
+(22, 27, 4),
+(11, 26, 1),
+(10, 26, 2),
+(9, 26, 4),
+(8, 26, 2),
+(7, 26, 5),
+(6, 26, 3),
+(5, 26, 5),
+(4, 26, 3),
+(3, 26, 1),
+(2, 26, 4),
+(28, 25, 2),
+(27, 25, 2),
+(26, 25, 2),
+(25, 25, 2),
+(24, 25, 2),
+(23, 25, 2),
+(22, 25, 2),
+(28, 24, 1),
+(27, 24, 1),
+(26, 24, 1),
+(25, 24, 1),
+(12, 34, 4),
+(28, 33, 2),
+(27, 33, 3),
+(26, 33, 2),
+(25, 33, 3),
+(24, 33, 2),
+(23, 33, 3),
+(22, 33, 5),
+(11, 32, 4),
+(10, 32, 1),
+(9, 32, 5),
+(8, 32, 3),
+(7, 32, 1),
+(6, 32, 1),
+(5, 32, 1),
+(4, 32, 1),
+(3, 32, 1),
+(2, 32, 1),
+(28, 31, 1),
+(27, 31, 1),
+(26, 31, 3),
+(25, 31, 5),
+(24, 31, 3),
+(23, 31, 5),
+(22, 31, 1),
+(13, 34, 5),
+(14, 34, 5),
+(15, 34, 2),
+(16, 34, 3),
+(17, 34, 2),
+(18, 34, 4),
+(19, 34, 4),
+(20, 34, 5),
+(21, 34, 2),
+(12, 35, 2),
+(13, 35, 1),
+(14, 35, 5),
+(15, 35, 5),
+(16, 35, 3),
+(17, 35, 2),
+(18, 35, 2),
+(19, 35, 2),
+(20, 35, 3),
+(21, 35, 4),
+(22, 36, 2),
+(23, 36, 4),
+(24, 36, 2),
+(25, 36, 5),
+(26, 36, 1),
+(27, 36, 3),
+(28, 36, 1),
+(22, 37, 1),
+(23, 37, 3),
+(24, 37, 3),
+(25, 37, 3),
+(26, 37, 1),
+(27, 37, 1),
+(28, 37, 4),
+(22, 38, 1),
+(23, 38, 1),
+(24, 38, 1),
+(25, 38, 1),
+(26, 38, 1),
+(27, 38, 1),
+(28, 38, 1),
+(22, 39, 1),
+(23, 39, 4),
+(24, 39, 3),
+(25, 39, 4),
+(26, 39, 4),
+(27, 39, 3),
+(28, 39, 2),
+(2, 40, 5),
+(3, 40, 5),
+(4, 40, 1),
+(5, 40, 1),
+(6, 40, 1),
+(7, 40, 5),
+(8, 40, 1),
+(9, 40, 1),
+(10, 40, 5),
+(11, 40, 5),
+(22, 41, 5),
+(23, 41, 5),
+(24, 41, 5),
+(25, 41, 5),
+(26, 41, 5),
+(27, 41, 5),
+(28, 41, 5),
+(12, 42, 3),
+(13, 42, 4),
+(14, 42, 3),
+(15, 42, 4),
+(16, 42, 4),
+(17, 42, 4),
+(18, 42, 4),
+(20, 42, 2),
+(21, 42, 4),
+(2, 43, 1),
+(3, 43, 1),
+(4, 43, 1),
+(5, 43, 1),
+(6, 43, 1),
+(7, 43, 1),
+(8, 43, 1),
+(9, 43, 1),
+(10, 43, 1),
+(11, 43, 1),
+(12, 44, 3),
+(13, 44, 2),
+(14, 44, 1),
+(15, 44, 5),
+(16, 44, 2),
+(17, 44, 5),
+(18, 44, 5),
+(19, 44, 1),
+(21, 44, 5),
+(2, 45, 2),
+(3, 45, 1),
+(4, 45, 1),
+(5, 45, 3),
+(6, 45, 5),
+(7, 45, 4),
+(8, 45, 3),
+(9, 45, 4),
+(10, 45, 4),
+(11, 45, 5),
+(2, 46, 5),
+(3, 46, 5),
+(4, 46, 5),
+(5, 46, 5),
+(6, 46, 5),
+(7, 46, 5),
+(8, 46, 5),
+(9, 46, 5),
+(10, 46, 5),
+(11, 46, 5),
+(12, 47, 3),
+(13, 47, 3),
+(14, 47, 3),
+(15, 47, 3),
+(16, 47, 3),
+(17, 47, 3),
+(18, 47, 3),
+(19, 47, 3),
+(20, 47, 3),
+(21, 47, 3),
+(12, 48, 5),
+(13, 48, 5),
+(14, 48, 5),
+(15, 48, 5),
+(16, 48, 5),
+(17, 48, 5),
+(18, 48, 5),
+(19, 48, 5),
+(20, 48, 5),
+(21, 48, 5),
+(2, 49, 1),
+(3, 49, 2),
+(4, 49, 3),
+(5, 49, 5),
+(6, 49, 1),
+(7, 49, 3),
+(8, 49, 5),
+(9, 49, 1),
+(10, 49, 3),
+(11, 49, 5),
+(22, 50, 5),
+(23, 50, 3),
+(24, 50, 5),
+(25, 50, 2),
+(26, 50, 4),
+(27, 50, 2),
+(28, 50, 2),
+(12, 51, 3),
+(13, 51, 3),
+(14, 51, 4),
+(15, 51, 5),
+(16, 51, 5),
+(17, 51, 5),
+(18, 51, 4),
+(19, 51, 5),
+(20, 51, 2),
+(21, 51, 3),
+(2, 52, 3),
+(3, 52, 4),
+(4, 52, 3),
+(5, 52, 3),
+(7, 52, 1),
+(8, 52, 4),
+(9, 52, 5),
+(10, 52, 3),
+(11, 52, 2),
+(12, 53, 2),
+(13, 53, 3),
+(14, 53, 3),
+(15, 53, 3),
+(16, 53, 2),
+(18, 53, 4),
+(19, 53, 2),
+(20, 53, 5),
+(21, 53, 1),
+(2, 54, 3),
+(3, 54, 4),
+(4, 54, 2),
+(5, 54, 5),
+(7, 54, 2),
+(8, 54, 5),
+(9, 54, 1),
+(11, 54, 5),
+(12, 55, 5),
+(13, 55, 5),
+(14, 55, 5),
+(15, 55, 5),
+(16, 55, 5),
+(17, 55, 5),
+(18, 55, 5),
+(20, 55, 5),
+(21, 55, 5),
+(2, 56, 2),
+(3, 56, 2),
+(4, 56, 2),
+(5, 56, 2),
+(6, 56, 2),
+(7, 56, 2),
+(8, 56, 2),
+(9, 56, 2),
+(10, 56, 2),
+(11, 56, 2),
+(12, 57, 1),
+(13, 57, 1),
+(14, 57, 1),
+(15, 57, 1),
+(16, 57, 1),
+(17, 57, 1),
+(18, 57, 1),
+(19, 57, 1),
+(20, 57, 1),
+(21, 57, 1),
+(2, 58, 3),
+(3, 58, 3),
+(4, 58, 3),
+(5, 58, 3),
+(6, 58, 3),
+(7, 58, 3),
+(8, 58, 3),
+(9, 58, 3),
+(10, 58, 3),
+(11, 58, 3),
+(12, 59, 5),
+(13, 59, 5),
+(14, 59, 5),
+(15, 59, 5),
+(16, 59, 3),
+(17, 59, 5),
+(18, 59, 5),
+(19, 59, 5),
+(20, 59, 5),
+(21, 59, 5),
+(22, 60, 5),
+(23, 60, 5),
+(24, 60, 5),
+(25, 60, 5),
+(26, 60, 5),
+(27, 60, 5),
+(28, 60, 5),
+(22, 61, 3),
+(23, 61, 3),
+(24, 61, 3),
+(25, 61, 3),
+(26, 61, 3),
+(27, 61, 3),
+(28, 61, 3),
+(22, 62, 3),
+(23, 62, 3),
+(24, 62, 3),
+(25, 62, 3),
+(26, 62, 3),
+(27, 62, 3),
+(28, 62, 3),
+(12, 63, 4),
+(13, 63, 4),
+(14, 63, 4),
+(16, 63, 4),
+(17, 63, 4),
+(18, 63, 4),
+(19, 63, 4),
+(20, 63, 4),
+(21, 63, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `peer_evaluation_response_summary`
+--
+CREATE TABLE IF NOT EXISTS `peer_evaluation_response_summary` (
+`evaluation_id` int(5) unsigned
+,`average_response` decimal(17,4)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `peer_evaluation_response_summary_information`
+--
+CREATE TABLE IF NOT EXISTS `peer_evaluation_response_summary_information` (
+`reviewer` varchar(32)
+,`reviewee` varchar(32)
+,`phase` smallint(2)
+,`average_response` decimal(17,4)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `peer_eval_comments_by_reviewee`
+--
+CREATE TABLE IF NOT EXISTS `peer_eval_comments_by_reviewee` (
+`reviewee` varchar(32)
+,`reviewer_first_name` varchar(32)
+,`reviewer_last_name` varchar(32)
+,`comment` text
+,`phase` smallint(2)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `peer_eval_comments_by_reviewer`
+--
+CREATE TABLE IF NOT EXISTS `peer_eval_comments_by_reviewer` (
+`reviewer` varchar(32)
+,`reviewee_first_name` varchar(32)
+,`reviewee_last_name` varchar(32)
+,`comment` text
+,`phase` smallint(2)
+);
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phases`
+--
+
+CREATE TABLE IF NOT EXISTS `phases` (
+  `id` smallint(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `phases`
+--
+
+INSERT INTO `phases` (`id`) VALUES
+(1),
+(2),
+(3),
+(4);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `reviewer_reviewee_matrix`
+--
+CREATE TABLE IF NOT EXISTS `reviewer_reviewee_matrix` (
+`reviewer` varchar(32)
+,`reviewee` varchar(32)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `reviewer_reviewee_matrix_AA`
+--
+CREATE TABLE IF NOT EXISTS `reviewer_reviewee_matrix_AA` (
+`reviewer` varchar(32)
+,`reviewee_role` int(2)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `reviewer_reviewee_matrix_BB`
+--
+CREATE TABLE IF NOT EXISTS `reviewer_reviewee_matrix_BB` (
+`reviewee` varchar(32)
+,`current_role` int(2)
+);
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scalars`
+--
+
+CREATE TABLE IF NOT EXISTS `scalars` (
+  `item` varchar(128) NOT NULL,
+  `value` varchar(128) NOT NULL,
+  PRIMARY KEY (`item`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `scalars`
+--
+
+INSERT INTO `scalars` (`item`, `value`) VALUES
+('current_phase', '1'),
+('registration_enabled', '1'),
+('registration_code', 'ooo'),
+('end_of_term', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students`
+--
+
+CREATE TABLE IF NOT EXISTS `students` (
+  `username` varchar(32) NOT NULL COMMENT 'FK: users(username)',
+  `current_role` int(2) NOT NULL COMMENT 'FK: group_roles(id)',
+  `group_id` int(2) unsigned NOT NULL COMMENT 'FK: groups(id)',
+  PRIMARY KEY (`username`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`username`, `current_role`, `group_id`) VALUES
+('steve', 1, 2),
+('rjenkins18', 3, 1),
+('dmann', 1, 1),
+('cjstowers', 3, 1),
+('rkeen', 3, 1),
+('sdellysse', 2, 1),
+('bubba', 2, 2),
+('jake', 3, 2),
+('keith', 3, 2),
+('bill', 1, 3),
+('abe', 3, 3),
+('pot', 3, 3),
+('cop', 2, 3),
+('pop', 3, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `student_information`
+--
+CREATE TABLE IF NOT EXISTS `student_information` (
+`username` varchar(32)
+,`first_name` varchar(32)
+,`last_name` varchar(32)
+,`title` varchar(12)
+,`group_id` int(2) unsigned
+,`role_name` varchar(12)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `student_information_a`
+--
+CREATE TABLE IF NOT EXISTS `student_information_a` (
+`title_id` int(2) unsigned
+,`title` varchar(12)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `student_information_b`
+--
+CREATE TABLE IF NOT EXISTS `student_information_b` (
+`username` varchar(32)
+,`first_name` varchar(32)
+,`last_name` varchar(32)
+,`title` varchar(12)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `student_information_c`
+--
+CREATE TABLE IF NOT EXISTS `student_information_c` (
+`username` varchar(32)
+,`first_name` varchar(32)
+,`last_name` varchar(32)
+,`title` varchar(12)
+,`group_id` int(2) unsigned
+,`role_id` int(2)
+);
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `titles`
+--
+
+CREATE TABLE IF NOT EXISTS `titles` (
+  `id` int(2) unsigned NOT NULL AUTO_INCREMENT,
+  `text` varchar(12) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='!!! Has been phased out. kept only for compat reasons !!!' AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `titles`
+--
+
+INSERT INTO `titles` (`id`, `text`) VALUES
+(1, 'NOT_USED');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `username` varchar(32) NOT NULL,
+  `password` char(32) NOT NULL COMMENT 'md5 hashed',
+  `email_address` varchar(128) NOT NULL,
+  `first_name` varchar(32) NOT NULL,
+  `last_name` varchar(32) NOT NULL,
+  `access_role` int(2) unsigned NOT NULL DEFAULT '1' COMMENT 'FK: access_roles(id)',
+  `is_student` tinyint(1) NOT NULL DEFAULT '1',
+  `title` int(2) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`username`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`username`, `password`, `email_address`, `first_name`, `last_name`, `access_role`, `is_student`, `title`) VALUES
+('rjenkins18', '171aabc6737cbd0eec9082336094a971', 'rjenkins18@radford.edu', 'Ryan ', 'Jenkins', 1, 1, 1),
+('rkeen', '4c5a42faa5f72ddd15ab59b9f82d6082', 'rlkeen@radford.edu', 'Ricky', 'Keen', 1, 1, 1),
+('sdellysse', 'a131c85a50236c35ceeffe9700167692', 's', 'Shawn', 'Dellysse', 1, 1, 1),
+('cjstowers', '42221d296432be7f9e2aa8cbb1d08c59', 'cjstowers@radford.edu', 'Carmel', 'Stowers', 1, 1, 1),
+('dmann', 'f9a0a3bad60736e4466626122e7499b6', 'dmann3@radford.edu', 'David', 'Mann', 1, 1, 1),
+('admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin', 'admin', 'admin', 2, 0, 1),
+('steve', '527bd5b5d689e2c32ae974c6229ff785', 'jack@jack.edu', 'jack', 'jack', 1, 1, 1),
+('bubba', 'd00217fa64598f3a33f6fef8d6a48a31', 'bubba@radford.edu', 'bubba', 'gump', 1, 1, 1),
+('jake', '1200cf8ad328a60559cf5e7c5f46ee6d', 'jake@radford.edu', 'jake', 'jake', 1, 1, 1),
+('keith', '8dd9fa632ca161d0ca1929a4d99cbe77', 'keith@radford.edu', 'keith', 'keith', 1, 1, 1),
+('bill', 'e8375d7cd983efcbf956da5937050ffc', 'bill@bill.edu', 'bill', 'bill', 1, 1, 1),
+('abe', '7888d65a43501d992cc38638b59964d6', 'abe@abe.edu', 'abe', 'abe', 1, 1, 1),
+('pot', 'ecbfde1394f2dfe02d50081d8a35dba6', 'pot@pot.edu', 'pot', 'pot', 1, 1, 1),
+('cop', 'aa3ef5b6ebb78d184429cab1ec2ab521', 'cop@cop.edu', 'cop', 'cop', 1, 1, 1),
+('pop', 'b21afc54fb48d153c19101658f4a2a48', 'pop@pop.edu', 'pop', 'pop', 1, 1, 1),
+('wsmith', '82d2c532a6ac00d1223885ea614b01e6', 'N/A', 'Wanda', 'Smith', 2, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `user_access_roles`
+--
+CREATE TABLE IF NOT EXISTS `user_access_roles` (
+`username` varchar(32)
+,`access_role` varchar(12)
+);
+-- --------------------------------------------------------
+
+--
+-- Structure for view `active_groups`
+--
+DROP TABLE IF EXISTS `active_groups`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `active_groups` AS select `groups`.`id` AS `id` from `groups` where (`groups`.`active` = '1');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `peer_evaluation_response_summary`
+--
+DROP TABLE IF EXISTS `peer_evaluation_response_summary`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `peer_evaluation_response_summary` AS select `peer_evaluation_responses`.`evaluation_id` AS `evaluation_id`,(avg(`peer_evaluation_responses`.`response`) * 20) AS `average_response` from `peer_evaluation_responses` group by `peer_evaluation_responses`.`evaluation_id`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `peer_evaluation_response_summary_information`
+--
+DROP TABLE IF EXISTS `peer_evaluation_response_summary_information`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `peer_evaluation_response_summary_information` AS select `peer_evaluation`.`reviewer` AS `reviewer`,`peer_evaluation`.`reviewee` AS `reviewee`,`peer_evaluation`.`phase` AS `phase`,`peer_evaluation_response_summary`.`average_response` AS `average_response` from (`peer_evaluation_response_summary` join `peer_evaluation` on((`peer_evaluation_response_summary`.`evaluation_id` = `peer_evaluation`.`id`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `peer_eval_comments_by_reviewee`
+--
+DROP TABLE IF EXISTS `peer_eval_comments_by_reviewee`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `peer_eval_comments_by_reviewee` AS select `peer_evaluation`.`reviewee` AS `reviewee`,`users`.`first_name` AS `reviewer_first_name`,`users`.`last_name` AS `reviewer_last_name`,`peer_evaluation`.`comment` AS `comment`,`peer_evaluation`.`phase` AS `phase` from (`peer_evaluation` join `users` on((`peer_evaluation`.`reviewer` = `users`.`username`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `peer_eval_comments_by_reviewer`
+--
+DROP TABLE IF EXISTS `peer_eval_comments_by_reviewer`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `peer_eval_comments_by_reviewer` AS select `peer_evaluation`.`reviewer` AS `reviewer`,`users`.`first_name` AS `reviewee_first_name`,`users`.`last_name` AS `reviewee_last_name`,`peer_evaluation`.`comment` AS `comment`,`peer_evaluation`.`phase` AS `phase` from (`peer_evaluation` join `users` on((`peer_evaluation`.`reviewee` = `users`.`username`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `reviewer_reviewee_matrix`
+--
+DROP TABLE IF EXISTS `reviewer_reviewee_matrix`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `reviewer_reviewee_matrix` AS select `reviewer_reviewee_matrix_AA`.`reviewer` AS `reviewer`,`reviewer_reviewee_matrix_BB`.`reviewee` AS `reviewee` from (`reviewer_reviewee_matrix_AA` join `reviewer_reviewee_matrix_BB` on((`reviewer_reviewee_matrix_AA`.`reviewee_role` = `reviewer_reviewee_matrix_BB`.`current_role`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `reviewer_reviewee_matrix_AA`
+--
+DROP TABLE IF EXISTS `reviewer_reviewee_matrix_AA`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `reviewer_reviewee_matrix_AA` AS select `students`.`username` AS `reviewer`,`evaluation_role_matrix`.`reviewee_role` AS `reviewee_role` from (`students` join `evaluation_role_matrix` on((`evaluation_role_matrix`.`reviewer_role` = `students`.`current_role`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `reviewer_reviewee_matrix_BB`
+--
+DROP TABLE IF EXISTS `reviewer_reviewee_matrix_BB`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `reviewer_reviewee_matrix_BB` AS select `students`.`username` AS `reviewee`,`students`.`current_role` AS `current_role` from `students`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `student_information`
+--
+DROP TABLE IF EXISTS `student_information`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `student_information` AS select `student_information_c`.`username` AS `username`,`student_information_c`.`first_name` AS `first_name`,`student_information_c`.`last_name` AS `last_name`,`student_information_c`.`title` AS `title`,`student_information_c`.`group_id` AS `group_id`,`group_roles`.`text` AS `role_name` from (`student_information_c` join `group_roles` on((`student_information_c`.`role_id` = `group_roles`.`id`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `student_information_a`
+--
+DROP TABLE IF EXISTS `student_information_a`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `student_information_a` AS select `titles`.`id` AS `title_id`,`titles`.`text` AS `title` from `titles`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `student_information_b`
+--
+DROP TABLE IF EXISTS `student_information_b`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `student_information_b` AS select `users`.`username` AS `username`,`users`.`first_name` AS `first_name`,`users`.`last_name` AS `last_name`,`student_information_a`.`title` AS `title` from (`student_information_a` join `users` on((`student_information_a`.`title_id` = `users`.`title`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `student_information_c`
+--
+DROP TABLE IF EXISTS `student_information_c`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `student_information_c` AS select `student_information_b`.`username` AS `username`,`student_information_b`.`first_name` AS `first_name`,`student_information_b`.`last_name` AS `last_name`,`student_information_b`.`title` AS `title`,`students`.`group_id` AS `group_id`,`students`.`current_role` AS `role_id` from (`student_information_b` join `students` on((`student_information_b`.`username` = `students`.`username`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `user_access_roles`
+--
+DROP TABLE IF EXISTS `user_access_roles`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`softeng17`@`localhost` SQL SECURITY DEFINER VIEW `user_access_roles` AS select `users`.`username` AS `username`,`access_roles`.`text` AS `access_role` from (`users` join `access_roles` on((`users`.`access_role` = `access_roles`.`id`)));

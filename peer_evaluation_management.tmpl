@@ -1,0 +1,145 @@
+<if question_added>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          Your question has been added.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if questions_edited>
+  <form>
+    <div class="message success">
+      <blockquote>
+        <p class="instructions">
+          Your questions have been edited.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if empty_question_text>
+  <form>
+    <div class="message fail">
+      <blockquote>
+        <p class="instructions">
+          Please enter a question into the text box.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<if no_selection>
+  <form>
+    <div class="message fail">
+      <blockquote>
+        <p class="instructions">
+          Select at least one question to edit.
+        </p>
+      </blockquote>
+    </div>
+  </form>
+</if>
+<form action="peer_evaluation_management_execution.php" method="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset>
+    <legend>Add a Question</legend>
+    <p class="select">
+      <label for="role">Select a role to add a question to:</label>
+      <br/>
+      <select name="role" id="role">
+        <loop roles>
+          <option value="<var id>"><var text></option>
+        </loop>
+      </select>
+    </p>
+    <p class="text">
+      <label for="question_text">Text of question:</label>
+      <br/>
+      <input type="text" name="question_text" id="question_text" />
+    </p>
+    <p class="submit_button">
+      <input type="submit" name="action" value="Add Question" />
+    </p>
+  </fieldset>
+</form>
+
+<form action="peer_evaluation_question_editor.php" method="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset>
+    <legend>Senior Questions</legend>
+    <table>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Question</th>
+      </tr>
+      <loop senior_questions>
+        <tr>
+          <td>
+            <input type="checkbox" name="selection_<var id>" value="1" id="selection_<var id>"/>
+          </td>
+          <td>
+            <label for="selection_<var id>"><var text></label>
+          </td>
+        </tr>
+      </loop>
+    </table>
+    <p class="submit_button">
+      <input type="submit" name="action" value="Edit Question(s)" />
+    </p>
+  </fieldset>
+</form>
+
+<form action="peer_evaluation_question_editor.php" method="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset>
+    <legend>Junior Questions</legend>
+    <table>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Question</th>
+      </tr>
+      <loop junior_questions>
+        <tr>
+          <td>
+            <input type="checkbox" name="selection_<var id>" value="1" id="selection_<var id>"/>
+          </td>
+          <td>
+            <label for="selection_<var id>"><var text></label>
+          </td>
+        </tr>
+      </loop>
+    </table>
+    <p class="submit_button">
+      <input type="submit" name="action" value="Edit Question(s)" />
+    </p>
+  </fieldset>
+</form>
+
+<form action="peer_evaluation_question_editor.php" method="post">
+  <input type="hidden" name="previous_page" value="<var previous_page>"/>
+  <fieldset>
+    <legend>Staff Questions</legend>
+    <table>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Question</th>
+      </tr>
+      <loop staff_questions>
+        <tr>
+          <td>
+            <input type="checkbox" name="selection_<var id>" value="1" id="selection_<var id>"/>
+          </td>
+          <td>
+            <label for="selection_<var id>"><var text></label>
+          </td>
+        </tr>
+      </loop>
+    </table>
+    <p class="submit_button">
+      <input type="submit" name="action" value="Edit Question(s)" />
+    </p>
+  </fieldset>
+</form>

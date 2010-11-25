@@ -1,0 +1,17 @@
+<form>
+  <fieldset>
+    <legend>Peer Evaluations</legend>
+    <table>
+      <tr>
+        <th>Group Number</th>
+        <th>View Online</th>
+      </tr>
+      <loop peer_evaluation_groups>
+        <tr>
+          <td><var group_id></td>
+          <td><a href="view_peer_evaluation_report.php?group_id=<var group_id>">View</a></td>
+        </tr>
+      </loop>
+    </table>
+  </fieldset>
+</form>

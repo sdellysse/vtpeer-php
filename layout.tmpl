@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <title> <var title> | Management | Virginia Tech </title>
+    <link rel="stylesheet" href="assets/css/fluid-vertical.css" type="text/css"
+          media="screen"
+    />
+    <link rel="stylesheet" href='site.css' type='text/css' media='screen'/>
+    <link rel="stylesheet" href="assets/css/print.css" type="text/css" media="print" />
+    <!--[if IE]>
+      <link rel="stylesheet" href="assets/css/ie.css" type="text/css" media="all" />
+    <![endif]-->
+    <!--[if IE 6]>
+      <link rel="stylesheet" href="assets/css/ie6.css" type="text/css" media="all" />
+    <![endif]-->
+    <script type="text/javascript" src="assets/js/widgets.js"></script>
+    <meta http-equiv='X-UA-Compatible' content='IE=EmulateIE7' />
+    <script type="text/javascript">
+      <!--
+      function is_ie8(){
+        var r = false;
+        if(navigator.appName == 'Microsoft Internet Explorer'){
+          var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+          if(re.exec(navigator.userAgent) != null){
+            rv = parseFloat(RegExp.$1);
+            if(rv >= 8.0){
+              r = true;
+            }
+          }
+        }
+        return r;
+      }
+      function show_ie8_warning(){
+        //document.getElementById('ie_warning').style.removeProperty('display');
+        document.getElementById('ie_warning').style.display = 'inherit';
+      }
+
+      window.onload = function(){
+        if(is_ie8()){
+          show_ie8_warning();
+        }
+      }
+      //-->
+    </script>
+    <if scripts>
+      <loop scripts>
+        <script type="text/javascript" src="<var src>"></script>
+      </loop>
+    </if>
+  </head>
+  <body id="fluid-vertical" class="fluid vertical">
+    <div class="skip"><!-- This div is invisible -->
+      <a name="skip-menu"></a> <h2> Skip Menu </h2>
+      <ul>
+        <li>
+        <a href="#skipto-search">Skip to Search</a>
+        </li>
+        <li>
+        <a href="#skipto-main-nav">Skip to Main Navigation</a>
+        </li>
+        <li>
+        <a href="#skipto-main-content">Skip to Main Content</a>
+        </li>
+        <li>
+        <a href="#skipto-footer">Skip to Footer</a>
+        </li>
+      </ul>
+    </div>
+    <!-- END SKIP -->
+    <!-- BEGIN PAGE-WRAPPERS -->
+    <div id="page-wrapper1">
+      <div id="page-wrapper2">
+        <div id="page-wrapper3">
+          <div id="page-wrapper4">
+            <!-- BEGIN PAGE-AREA -->
+            <div id="page-area">
+              <!-- BEGIN HEADER -->
+              <div id="header">
+                <div id="header-inside">
+                  <div id="vt-header">
+                    <a href="http://www.vt.edu/"
+                       title="Return to Virginia Tech Home Page">
+                      <img src="images/unit_header_screen.jpg"
+                           alt="Virginia Tech | Invent the Future"
+                           id="vt-header-screen" width="758" height="97"
+                      />
+                    </a>
+                  </div>
+                  <div id="unit-header">
+                    <!-- TODO figure out what unit is -->
+                    <a href="#" title="Return to Unit of Your Unit Website">
+                      <img src="images/unit_header_screen.jpg"
+                           alt="Unit of Your Unit"
+                           id="unit-header-screen" width="758" height="97"
+                      />
+                    </a>
+                    <img src="images/unit_header_print.gif"
+                          alt="Virginia Tech | Unit of Your Unit"
+                          id="unit-header-print" width="670" height="80"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- END HEADER -->
+              <!-- BEGIN MAIN -->
+              <div id="main">
+                <!-- BEGIN SUB-HEADER -->
+                <div id="sub-header">
+                  <!-- BEGIN SEARCH -->
+                  <div class="skip">
+                    <a href="#skip-menu">Return to Skip Menu</a>
+                    <a name="skipto-search"></a>
+                    <h2>Search</h2>
+                  </div>
+                  <div id="search">
+                    <form name="vtsearchform" method="get"
+                          action="http://search.vt.edu/query">
+                      <fieldset id="search-criteria">
+                        <p class="hide">
+                        Select Your Search Criteria
+                        </p>
+                        <input id="search-pages" type="radio" name="url"
+                               value="http://search.vt.edu/query"
+                               checked="checked"
+                               onclick="document.vtsearchform.action=this.value"
+                        /> <label for="search-pages">VT Web</label>
+
+                        <input id="search-people" type="radio" name="url"
+                               value="http://search.vt.edu/people.jsp"
+                               onclick="document.vtsearchform.action=this.value"
+                        /> <label for="search-people">VT People</label>
+                      </fieldset>
+                      <fieldset id="search-entry">
+                        <label for="search-query" class="hide">
+                          Enter your search here
+                        </label> <input id="search-query" name="q" type="text"
+                                        value="Enter your search here"
+                                        onclick="clearquery('search-query')"
+                                        size="25" maxlength="50"
+                                 />
+                        <input name="sitesearch" type="hidden" value="vt.edu" />
+                        <input name="hl" type="hidden" value="en" />
+                        <input name="sa" type="image"
+                               src="assets/img/search_submit.gif" alt="Go"
+                        />
+                      </fieldset>
+                    </form>
+                    <div class="clear">
+                      <span> &nbsp; </span>
+                    </div>
+                  </div>
+                  <!-- END SEARCH -->
+                  <div id="sub-header-inside">
+                    <!-- BEGIN SUB HEADER BANNER -->
+                    <p>
+                    <a href="#">Management</a>
+                    </p>
+                    <!-- END SUB HEADER BANNER -->
+                  </div>
+                  <div class="clear">
+                    <span> &nbsp; </span>
+                  </div>
+                </div>
+                <!-- END SUB-HEADER -->
+                <!-- BEGIN NAV -->
+                <div id="nav">
+                  <!-- BEGIN MAIN NAV -->
+                  <div class="skip">
+                    <a href="#skip-menu">Return to Skip Menu</a>
+                    <a name="skipto-main-nav"></a> <h2> Main Navigation </h2>
+                  </div>
+                  <div id="main-nav">
+                    <div id="main-nav-top">
+                      <div id="main-nav-mid">
+                        <div id="main-nav-bot">
+                          <ul class="back">
+                            <li>
+                            <a href="http://www.vt.edu/">Virginia Tech Home</a>
+                            </li>
+                            <li>
+                            <a href="http://www.pamplin.vt.edu/">Pamplin College of Business</a>
+                            </li>
+                            <li>
+                            <a href="http://www.management.pamplin.vt.edu/">Department of Management</a>
+                            </li>
+                          </ul>
+                          <!-- BEGIN SUB NAV -->
+                          <div class="sub-nav">
+                            <div class="sub-nav-top">
+                              <div class="sub-nav-mid">
+                                <div class="sub-nav-bot">
+                                  <var navigation>
+                                  <unless not_logged_in>
+                                    <ul>
+                                      <li>
+                                        <a href="logout.php">Logout</a>
+                                      </li>
+                                    </ul>
+                                  </unless>
+                                  <div class="clear">
+                                    <span> &nbsp; </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- END SUB NAV -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- END MAIN NAV -->
+                  <div class="clear">
+                    <span> &nbsp; </span>
+                  </div>
+                </div>
+                <!-- END NAV -->
+                <!-- BEGIN CONTENT -->
+                <div id="content">
+                  <!-- BEGIN MAIN CONTENT -->
+                  <div class="skip">
+                    <a href="#skip-menu">Return to Skip Menu</a>
+                    <a name="skipto-main-content"></a> <h2> Main Content </h2>
+                  </div>
+                  <div id="main-content">
+                    <div id="page-title">
+                      <form id="ie_warning" style="display: none">
+                        <div class="message notice" >
+                          <blockquote>
+                            <p class="instructions">
+                              Please use this site in Internet Explorer 8's Compatibility Mode.
+                            </p>
+                            <p style="text-align: center; vertical-align: middle;">
+                              <img src="images/compatibility_mode.png" />
+                            </p>
+                          </blockquote>
+                        </div>
+                      </form>
+                      <h1><span style="font-size: 1.2em;">Peer Review System</span></h1>
+                      <hr/>
+                      <h1><var title></h1>
+                    </div>
+                    <var main>
+                  </div>
+                  <!-- END MAIN CONTENT -->
+                  <!-- BEGIN SUB-FOOTER -->
+                  <div class="skip">
+                    <a href="#skip-menu">Return to Skip Menu</a>
+                    <a name="skipto-footer"></a> <h2> Footer </h2>
+                  </div>
+                  <div id="sub-footer">
+                    <div id="sub-footer-inside">
+                      <var footer>
+                    </div>
+                  </div>
+                  <!-- END SUB-FOOTER -->
+                </div>
+                <!-- END CONTENT -->
+                <div class="clear">
+                  <span> &nbsp; </span>
+                </div>
+              </div>
+              <!-- END MAIN -->
+              <div class="clear">
+                <span> &nbsp; </span>
+              </div>
+            </div>
+            <!-- END PAGE-AREA -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAGE-WRAPPERS -->
+    <!-- BEGIN FOOTER -->
+    <div id="footer">
+      <ul>
+        <li>
+        <a href="http://www.givingto.vt.edu">Giving to Virginia Tech</a>
+        </li>
+        <li>
+        <a href="http://www.bookstore.vt.edu">Bookstore</a>
+        </li>
+        <li>
+        <a href="http://www.jobs.vt.edu/" class="open-window">Jobs at Virginia Tech</a>
+        </li>
+        <li>
+        <a href="http://www.vt.edu/contacts/">Contact Us</a>
+        </li>
+        <li>
+        <a href="http://www.vt.edu/equal_opportunity.php">Equal Opportunity</a>
+        </li>
+      </ul>
+      <ul>
+        <li>
+        <a href="http://www.vt.edu/privacy.php">Privacy Statement</a>
+        </li>
+        <li>
+        <a href="http://www.vt.edu/principles.php">Principles of Community</a>
+        </li>
+        <li>
+        <a href="http://www.vt.edu/acceptable_use.php">Acceptable Use Policy</a>
+        </li>
+        <li>
+        <a href="http://www.vt.edu/accessibility.php">Accessibility</a>
+        </li>
+      </ul>
+      <p>
+      &copy; 2010 Virginia Polytechnic Institute and State University |
+      <a href="http://www.vt.edu/contacts/webmaster.php">Website Feedback</a>
+      </p>
+    </div>
+    <!-- END FOOTER -->
+  </body>
+  <!-- END BODY -->
+</html>
